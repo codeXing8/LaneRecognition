@@ -40,10 +40,14 @@ while cap.isOpened():
     img_warped = perform_image_warp(img_masked, dst_size=(frame_width, frame_height), src=WARP_POINTS, dst=ORIG_POINTS)
 
     # Apply sliding window filter to warped image
-    img_sliding, curves, point_range = apply_sliding_window_filter(img_warped, draw_windows=True)
+    img_sliding, curves, _ = apply_sliding_window_filter(img_warped, draw_windows=True)
+    # cv2.imshow("Results", img_sliding)
 
     # Draw lanes on final image
-    img_final = draw_lanes(img, curves[0], curves[1], frame_width, frame_height, src=[42, 63, 14, 87])
+    if curves != None:
+        img_final = draw_lanes(img, curves[0], curves[1], frame_width, frame_height, src=[42, 63, 14, 87])
+    else:
+        img_final = img
 
     # Show results
     cv2.imshow("Results", img_final)

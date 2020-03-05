@@ -8,19 +8,6 @@ mkdir frames \
 && ./install_dependencies.sh
 ```
 
-#### Sample data
-All algorithms are applied to sample videos or images.
-In a real use-case, those would be applied to real-time video streams.
-This requires real-time capable code. The code inside this repo is designed for demonstration and prototyping purposes.
-
-This repo does not contain any sample data.
-The internet is an endless source for front camera driving footage e. g. from dash cams.
-However, see the following list for possible sources.
-Eventually, those videos have to be edited to imitate a built-in vehicle front camera.
-- [Driving in Toronto - Saturday Morning Drive (YouTube)](https://www.youtube.com/watch?v=oyfrPrGmBL4)
-- [All American Road in Utah, USA - 5 Hour of Road Drive (YouTube)](https://www.youtube.com/watch?v=ZOZOqbK86t0)
-- ...
-
 ### List of methods
 #### 1D-Line fitting to edge detection results under triangular mask
 <p align="center">
@@ -34,6 +21,7 @@ Based on both line parameters, the edge's length is increased from the lower hor
 To exclude long but irrelevant edges surrounding the actual lane, the area between the lower image boundary and the vanishing points is masked.
 A triangular mask excludes everything outside this region of interest (ROI).
 Inside the ROI, the approach is applied as described above.    
+Furthermore, general filter techniques like gradient limitation and sliding average considering the line parameters where used.
 
 Since this approach uses a one-dimensional fit (linear), it is mostly useful for linear lane marking shapes.
 In sharp curves, a polynomial fit of higher order or rather a clothoid fit would be necessary.

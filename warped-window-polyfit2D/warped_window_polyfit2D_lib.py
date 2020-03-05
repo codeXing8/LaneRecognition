@@ -90,7 +90,7 @@ def get_image_histogram(img):
 
 
 # Apply sliding window filter function
-def apply_sliding_window_filter(img, n_windows=15, margin=50, draw_windows=True):
+def apply_sliding_window_filter(img, n_windows=12, margin=144, draw_windows=True):
     # Prepare output image
     img_out = np.dstack((img, img, img)) * 255
 
@@ -144,6 +144,10 @@ def apply_sliding_window_filter(img, n_windows=15, margin=50, draw_windows=True)
         inds_right_lane.append(inds_right_nonzero)
         
     # Concatenate the arrays of indices
+    inds_left_lane = np.array([lane_data for lane_data in inds_left_lane if lane_data.any()])
+    inds_right_lane = np.array([lane_data for lane_data in inds_right_lane if lane_data.any()])
+    if inds_left_lane.shape[0] == 0 or inds_right_lane.shape[0] == 0:
+        return img, None, None
     inds_left_lane, inds_right_lane = np.concatenate(inds_left_lane), np.concatenate(inds_right_lane)
 
     # Get left and right line pixel positions as arrays of points
@@ -184,7 +188,7 @@ def apply_sliding_window_filter(img, n_windows=15, margin=50, draw_windows=True)
     # If no lanes where found, return original image
     else:
         # Return original image
-        return img, (0,0), (0,0), 0
+        return img, None, None
 
 
 # Draw lanes function
@@ -198,7 +202,7 @@ def draw_lanes(img, left_fit, right_fit, frame_width, frame_height, src):
     right_points = np.array([np.flipud(np.transpose(np.vstack([right_fit, point_range])))])
     points = np.hstack((left_points, right_points))
     # Draw lanes as polygons
-    cv2.fillPoly(img_color, np.int_(points), (0, 200, 255))
+    cv2.fillPoly(img_color, np.int_(points), (100   , 255, 0))
     # Re-warp image
     img_color = perform_image_warp(img_color, dst_size=(frame_width, frame_height), src=ORIG_POINTS, dst=WARP_POINTS)
     # Add original image and colorized lanes
