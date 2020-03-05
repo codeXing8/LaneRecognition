@@ -1,0 +1,7 @@
+# Caches
+.idea
+__pycache__
+
+# Video files
+*.mp4
+*.mkv
