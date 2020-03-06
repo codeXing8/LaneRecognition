@@ -2,13 +2,16 @@
 import cv2
 import numpy as np
 from warped_window_polyfit2D_lib import *
+from render_scene_gif import *
 
 # Constants
 PICKLE_FILE = 'calibration_pickle.p'
+RENDER_IMAGE_WIDTH = 600
 
 # Define video file to load
 video_file = 'sample.mp4'
-frame_width, frame_height = 1280, 720
+frame_width, frame_height = 1200, 640
+FRAME_RANGE = list(np.arange(550, 750))
 
 # Image warp parameters
 WARP_POINTS = np.float32([(42 / 100, 63 / 100), (1 - (42 / 100), 63 / 100), (14 / 100, 87 / 100), (1 - (14 / 100), 87 / 100)])
@@ -16,12 +19,28 @@ ORIG_POINTS = np.float32([(0, 0), (1, 0), (0, 1), (1, 1)])
 
 # Init video stream
 cap = cv2.VideoCapture(video_file)
+# Init frame counter
+frame_cnt = 0
+# Init frame name array
+filenames = []
 
 # Iterate over all frames
 while cap.isOpened():
     # Load current frame
-    _, img = cap.read()
+    ret, img = cap.read()
+
+    # If loaded image is corrupt, stop process
+    if ret == False:
+        break
+
+    # Log
+    print("Frame", frame_cnt)
     
+    # Use frame range
+    if frame_cnt not in FRAME_RANGE:
+        frame_cnt += 1
+        continue
+        
     # Resize image
     img = cv2.resize(img, (frame_width, frame_height), None)
     
@@ -49,13 +68,30 @@ while cap.isOpened():
     else:
         img_final = img
 
+    # Resize image
+    H, W = img_final.shape[0], img_final.shape[1]
+    scaling_factor = RENDER_IMAGE_WIDTH / W
+    H, W = int(H * scaling_factor), RENDER_IMAGE_WIDTH
+    img_final = cv2.resize(img_final, (W, H))
+
     # Show results
     cv2.imshow("Results", img_final)
     # Wait
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+    # Save frame
+    filename = 'frames/frame_{0:0>4}.png'.format(frame_cnt)
+    cv2.imwrite(filename, img_final)
+    filenames.append(filename)
+
+    # Increase frame counter
+    frame_cnt += 1
+
 # Release video stream
 cap.release()
 # Close all windows
 cv2.destroyAllWindows()
+
+# Render scene as .gif
+render_scene_gif(filenames, fps=15)
