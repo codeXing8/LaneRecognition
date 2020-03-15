@@ -29,7 +29,7 @@ Inside the ROI, the approach is applied as described above. Furthermore, general
 <p align="center">
     <img src="LaneRecognition002.gif" alt="Exemplary lane recognition algorithm results 002"/>
 </p>
-
+Inspired by [Ross Kippenbrock](https://www.youtube.com/watch?v=VyLihutdsPk&t=5s).
 
 As well as in the first method, Canny edge detection is applied to the image.
 In addition, a color filter is applied to the results. Thus, only bright image parts yielding edges are taken into consideration.
@@ -56,7 +56,7 @@ Finally, the perspective transformation is inverted again to recover the actual 
 <p align="center">
     <img src="LaneRecognition003.gif" alt="Exemplary lane recognition algorithm results 003"/>
 </p>
-Inspired by (Michael Virgo)[https://towardsdatascience.com/lane-detection-with-deep-learning-part-2-3ba559b5c5af]
+Inspired by [Michael Virgo](https://towardsdatascience.com/lane-detection-with-deep-learning-part-2-3ba559b5c5af).
 
 Based on an input dataset, a convolutional neural network is trained.
 Therefore, Keras is used due to its simple network architecture definition methods.
