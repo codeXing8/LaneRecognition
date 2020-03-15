@@ -75,7 +75,7 @@ while cap.isOpened():
     # Resize resulting lane image
     lane_img = np.asarray(cv2.resize(lane_img, IMG_SIZE), np.uint8)
     # Add input image and prediction results to fill blue and red channel with input data
-    img_final = cv2.addWeighted(img, 1, lane_img, 0.8, 0)
+    img_final = cv2.addWeighted(img, 0.6, lane_img, 0.8, 0)
     # Resize output image
     img_final = cv2.resize(img_final, OUTPUT_SIZE)
 
