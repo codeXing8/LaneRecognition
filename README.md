@@ -50,3 +50,12 @@ In each window, bright image points are considered and their coordinates are sto
 As a result, a set of point coordinates in x and y for each lane marking, left and right, can be used to fit a 2D-polynomial
 along the lane marking. Between the fitted lane data plots, a polygon is spanned to denote the lane.
 Finally, the perspective transformation is inverted again to recover the actual traffic scene.
+
+
+#### Post-processed convolutional neural network with Encoder-Decoder architecture
+<p align="center">
+    <img src="LaneRecognition003.gif" alt="Exemplary lane recognition algorithm results 003"/>
+</p>
+Based on an input dataset, a convolutional neural network is trained.
+Therefore, Keras is used due to its simple network architecture definition methods.
+The structure is almost symmetric, contains several dropouts and is purely convolutional.

@@ -5,3 +5,4 @@ __pycache__
 # Video files
 *.mp4
 *.mkv
+*.pdf
