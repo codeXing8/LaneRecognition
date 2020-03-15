@@ -10,15 +10,15 @@ from render_scene_gif import *
 
 # Define input, output video filename
 input_filename = "input.mp4"
-FRAME_RANGE = list(np.arange(850, 950))
+FRAME_RANGE = list(np.arange(800, 900))
 
 # Constants
-MAX_AVG_DATA = 5
+MAX_AVG_DATA = 15
 IMG_SIZE = (1280, 720)
-OUTPUT_SIZE = (1024, 600)
+OUTPUT_SIZE = (610, 300)
 SMALL_IMG_SIZE = (160, 80)
-WAIT_KEY_TIME = 20
-DILATE_ERODE_KERNEL = np.ones((5, 5))
+WAIT_KEY_TIME = 10
+DILATE_ERODE_KERNEL = np.ones((4, 4))
 
 # Load model
 model = load_model('model.h5')

@@ -56,6 +56,8 @@ Finally, the perspective transformation is inverted again to recover the actual 
 <p align="center">
     <img src="LaneRecognition003.gif" alt="Exemplary lane recognition algorithm results 003"/>
 </p>
+Inspired by (Michael Virgo)[https://towardsdatascience.com/lane-detection-with-deep-learning-part-2-3ba559b5c5af]
+
 Based on an input dataset, a convolutional neural network is trained.
 Therefore, Keras is used due to its simple network architecture definition methods.
 The structure is almost symmetric, contains several dropouts and is purely convolutional.
