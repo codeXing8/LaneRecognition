@@ -7,7 +7,6 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Activation, Dropout, UpSampling2D, Conv2D, Conv2DTranspose, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-from keras.preprocessing.image import ImageDataGenerator
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 import pickle
