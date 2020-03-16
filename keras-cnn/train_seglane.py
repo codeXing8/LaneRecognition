@@ -4,7 +4,6 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Import dependencies
 import numpy as np
-# from keras import regularizers
 from keras.models import Sequential
 from keras.layers import Activation, Dropout, UpSampling2D, Conv2D, Conv2DTranspose, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
@@ -16,10 +15,10 @@ import pickle
 # Constants
 train_data_filename = "train_data.p"
 train_labels_filename = "train_labels.p"
-INDEX_RANGE_RATE = 0.25
+INDEX_RANGE_RATE = 0.2
 TEST_SIZE = 0.1
 BATCH_SIZE = 128
-EPOCHS = 8
+EPOCHS = 6
 POOL_SIZE = (2, 2)
 
 # Load training images and labels from pickle file, return as NumPy array
@@ -91,26 +90,20 @@ model.add(Conv2DTranspose(1, (3, 3), padding='valid', strides=(1, 1), activation
 # Compile the model
 model.compile(optimizer='Adam', loss='mean_squared_error')
 
-# Add channel shift to training dataset
-datagen = ImageDataGenerator(channel_shift_range=0.1)
-datagen.fit(X_train)
-
 # Train model
-model.fit_generator(
-    datagen.flow(X_train, y_train, batch_size=BATCH_SIZE),
-    steps_per_epoch=len(X_train) / BATCH_SIZE,
+model.fit(
+    X_train, y_train,
+    batch_size=BATCH_SIZE,
     epochs=EPOCHS,
     verbose=1,
     validation_data=(X_val, y_val)
 )
 
-# Freeze layers since training is done, save model structure and weights
-model.trainable = False
-model.compile(optimizer='Adam', loss='mean_squared_error')
+# Store model
 model.save('model.h5')
 
 # Show summary of model
 model.summary()
 
 # Evaluate model
-print(model.evaluate(X_val, y_val, batch_size=128))
+print(model.evaluate(X_val, y_val, batch_size=BATCH_SIZE))

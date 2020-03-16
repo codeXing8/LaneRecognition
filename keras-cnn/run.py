@@ -41,9 +41,6 @@ while cap.isOpened():
     # Log
     print("Frame", frame_cnt)
 
-    # Resize input img
-    img = cv2.resize(img, IMG_SIZE)
-
     # Use frame range
     if frame_cnt not in FRAME_RANGE:
         frame_cnt += 1
@@ -73,7 +70,7 @@ while cap.isOpened():
     blank_img = np.zeros_like(avg_prediction).astype(np.uint8)
     lane_img = np.dstack((avg_prediction, blank_img, blank_img))
     # Resize resulting lane image
-    lane_img = np.asarray(cv2.resize(lane_img, IMG_SIZE), np.uint8)
+    lane_img = np.asarray(cv2.resize(lane_img, (img.shape[1], img.shape[0])), np.uint8)
     # Add input image and prediction results to fill blue and red channel with input data
     img_final = cv2.addWeighted(img, 0.6, lane_img, 0.8, 0)
     # Resize output image
