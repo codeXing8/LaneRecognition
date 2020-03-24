@@ -63,3 +63,5 @@ Inspired by [Michael Virgo](https://towardsdatascience.com/lane-detection-with-d
 Based on an input dataset, a convolutional neural network is trained.
 Therefore, Keras is used due to its simple network architecture definition methods.
 The structure is almost symmetric, contains several dropouts and is purely convolutional.
+Based on a different training set, it is also possible to not only learn the position of the ego-lane
+but so segment the image partly and separate all lane areas.
